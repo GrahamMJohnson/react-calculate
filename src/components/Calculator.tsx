@@ -6,9 +6,14 @@ const Calculator = () => {
   const [currentInput, setCurrentInput] = useState<string>("");
   const [previousInput, setPreviousInput] = useState<string | null>(null);
   const [operation, setOperation] = useState<string | null>(null);
+  const [expression, setExpression] = useState<string>("");
+  {
+    /*What is displayed*/
+  }
 
   const handleNumberClick = (digit: string) => {
     setCurrentInput((prev) => prev + digit);
+    setExpression((prev) => prev + digit);
   };
 
   const handleOperationClick = (op: string) => {
@@ -16,6 +21,7 @@ const Calculator = () => {
     setPreviousInput(currentInput);
     setCurrentInput("");
     setOperation(op);
+    setExpression((prev) => prev + " " + op + " ");
   };
 
   const handleEquals = () => {
@@ -43,6 +49,7 @@ const Calculator = () => {
     }
 
     setCurrentInput(result.toString());
+    setExpression((prev) => prev + " = " + result.toString());
     setPreviousInput(null);
     setOperation(null);
   };
@@ -51,6 +58,7 @@ const Calculator = () => {
     setCurrentInput("");
     setPreviousInput(null);
     setOperation(null);
+    setExpression("");
   };
 
   return (
@@ -58,7 +66,7 @@ const Calculator = () => {
       className="container mt-4 p-3 border rounded shadow-sm"
       style={{ maxWidth: 300 }}
     >
-      <Display value={currentInput || "0"} />
+      <Display expression={expression} />
       <Keypad
         onNumberClick={handleNumberClick}
         onOperationClick={handleOperationClick}

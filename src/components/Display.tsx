@@ -1,13 +1,11 @@
 type DisplayProps = {
-  value: string;
+  expression: string;
 };
 
-const Display = ({ value }: DisplayProps) => {
+const Display = ({ expression }: DisplayProps) => {
   return (
-    <div
-      className="form-control text-end mb-3 fs-4 bg-dark text-white"
-    >
-      {value}
+    <div className="form-control text-end mb-3 fs-4 bg-dark text-white">
+      {expression || 0}
     </div>
   );
 };
