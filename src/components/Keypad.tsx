@@ -7,15 +7,13 @@ type KeypadProps = {
   onClear: () => void;
 };
 
+//Keypad on the calculator with buttons for numbers and operators
 const Keypad = ({
   onNumberClick,
   onOperationClick,
   onEquals,
   onClear,
 }: KeypadProps) => {
-  const numbers = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"];
-  const operations = ["+", "-", "*", "/"];
-
   return (
     <div className="d-grid gap-2">
       <div className="row g-2">
