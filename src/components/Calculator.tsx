@@ -81,13 +81,14 @@ const Calculator = () => {
     setExpression("");
   };
 
+  //set up the full calculator
   return (
     <div
       className="container mt-4 p-3 border rounded shadow-sm"
       style={{ maxWidth: 300 }}
     >
       <Display expression={expression} />
-      <Keypad
+      <Keypad //Set button listeners to the handlers
         onNumberClick={handleNumberClick}
         onOperationClick={handleOperationClick}
         onEquals={handleEquals}
