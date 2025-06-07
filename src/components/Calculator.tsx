@@ -7,9 +7,6 @@ const Calculator = () => {
   const [previousInput, setPreviousInput] = useState<string | null>(null);
   const [operation, setOperation] = useState<string | null>(null);
   const [expression, setExpression] = useState<string>("");
-  {
-    /*What is displayed*/
-  }
 
   const handleNumberClick = (digit: string) => {
     setCurrentInput((prev) => prev + digit);
@@ -17,11 +14,20 @@ const Calculator = () => {
   };
 
   const handleOperationClick = (op: string) => {
-    if (currentInput === "") return;
-    setPreviousInput(currentInput);
-    setCurrentInput("");
-    setOperation(op);
-    setExpression((prev) => prev + " " + op + " ");
+    if (expression.includes("=")) {
+      //resets expression after a equals sign
+      setExpression(currentInput + " " + op + " ");
+      setPreviousInput(currentInput);
+      setCurrentInput("");
+      setOperation(op);
+    } else {
+      //normal
+      if (currentInput === "") return;
+      setPreviousInput(currentInput);
+      setCurrentInput("");
+      setOperation(op);
+      setExpression((prev) => prev + " " + op + " ");
+    }
   };
 
   const handleEquals = () => {
