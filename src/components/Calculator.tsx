@@ -33,6 +33,14 @@ const Calculator = () => {
       setCurrentInput("");
       setOperation(op);
       setEvaluated(false);
+    } else if (op === "√") { //Special case for square root, just takes one number
+      const result = Math.sqrt(parseFloat(currentInput));
+      setExpression(`√(${currentInput}) = ${result}`);
+      setCurrentInput(result.toString());
+      setPreviousInput(null);
+      setOperation(null);
+      setEvaluated(true);
+      return;
     } else {
       //normal
       if (currentInput === "") return;
@@ -52,16 +60,25 @@ const Calculator = () => {
 
     switch (operation) {
       case "+":
-        result = prev + current;
+        result = prev + current; //Addition
         break;
       case "-":
-        result = prev - current;
+        result = prev - current; //Subtraction
         break;
       case "*":
-        result = prev * current;
+        result = prev * current; //Multiplication
         break;
       case "/":
-        result = prev / current;
+        result = prev / current; //Division
+        break;
+      case "^":
+        result = Math.pow(prev, current); //Power
+        break;
+      case "%":
+        result = prev % current; //Modulo
+        break;
+      case "//":
+        result = Math.floor(prev / current); //Integer division
         break;
       default:
         return;

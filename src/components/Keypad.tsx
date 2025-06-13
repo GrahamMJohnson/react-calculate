@@ -69,7 +69,6 @@ const Keypad = ({
         </div>
       </div>
       <div className="row g-2 mt-2">
-        {" "}
         {/* +, -, * and / operator buttons */}
         <div className="col-3">
           <Button
@@ -97,6 +96,37 @@ const Keypad = ({
             label="/"
             onClick={() => onOperationClick("/")}
             variant="warning"
+          />
+        </div>
+      </div>
+      <div className="row g-2 mt-2">
+        {/* ^, √, % and // operator buttons */}
+        <div className="col-3">
+          <Button
+            label="^"
+            onClick={() => onOperationClick("^")}
+            variant="primary"
+          />
+        </div>
+        <div className="col-3">
+          <Button
+            label="√"
+            onClick={() => onOperationClick("√")}
+            variant="primary"
+          />
+        </div>
+        <div className="col-3">
+          <Button
+            label="%"
+            onClick={() => onOperationClick("%")}
+            variant="primary"
+          />
+        </div>
+        <div className="col-3">
+          <Button
+            label="//"
+            onClick={() => onOperationClick("//")}
+            variant="primary"
           />
         </div>
       </div>
