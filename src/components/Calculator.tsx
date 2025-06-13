@@ -26,69 +26,81 @@ const Calculator = () => {
 
   //If a operation is clicked, add to expression/input
   const handleOperationClick = (op: string) => {
-    if (expression.includes("=")) {
+    if (expression.includes("=") || justEvaluated) {
       //resets expression after a equals sign
-      setExpression(currentInput + " " + op + " ");
-      setPreviousInput(currentInput);
+      setExpression(op === "√" ? op : currentInput + " " + op + " ");
+      setPreviousInput(op === "√" ? null : currentInput);
       setCurrentInput("");
       setOperation(op);
       setEvaluated(false);
-    } else if (op === "√") { //Special case for square root, just takes one number
-      const result = Math.sqrt(parseFloat(currentInput));
-      setExpression(`√(${currentInput}) = ${result}`);
-      setCurrentInput(result.toString());
-      setPreviousInput(null);
-      setOperation(null);
-      setEvaluated(true);
       return;
-    } else {
-      //normal
-      if (currentInput === "") return;
-      setPreviousInput(currentInput);
-      setCurrentInput("");
-      setOperation(op);
-      setExpression((prev) => prev + " " + op + " ");
     }
+
+    if (op === "√") {
+      //Special case for square root, just takes one number
+      setOperation("√");
+      setPreviousInput(null);
+      setExpression((prev) => prev + "√");
+      return;
+    }
+
+    if (currentInput === "") return;
+
+    //normal
+    setPreviousInput(currentInput);
+    setCurrentInput("");
+    setOperation(op);
+    setExpression((prev) => prev + " " + op + " ");
   };
+
   //If equals is clicked, perform logic
   const handleEquals = () => {
-    if (!previousInput || !operation || currentInput === "") return;
+    if (!operation || currentInput === "") return;
 
-    const prev = parseFloat(previousInput);
     const current = parseFloat(currentInput);
     let result: number;
 
-    switch (operation) {
-      case "+":
-        result = prev + current; //Addition
-        break;
-      case "-":
-        result = prev - current; //Subtraction
-        break;
-      case "*":
-        result = prev * current; //Multiplication
-        break;
-      case "/":
-        result = prev / current; //Division
-        break;
-      case "^":
-        result = Math.pow(prev, current); //Power
-        break;
-      case "%":
-        result = prev % current; //Modulo
-        break;
-      case "//":
-        result = Math.floor(prev / current); //Integer division
-        break;
-      default:
-        return;
+    if (operation === "√") {
+      //check for square root, only needs current
+      result = Math.sqrt(current);
+      setExpression(`√${current} = ${result}`);
+    } else {
+      //needs previous and current
+      if (!previousInput) return;
+      const prev = parseFloat(previousInput);
+
+      switch (operation) {
+        case "+": //Addition
+          result = prev + current;
+          break;
+        case "-": //Subtraction
+          result = prev - current;
+          break;
+        case "*": //Multiplication
+          result = prev * current;
+          break;
+        case "/": //Division
+          result = prev / current;
+          break;
+        case "^": //Power
+          result = Math.pow(prev, current);
+          break;
+        case "%": //Modulo
+          result = prev % current;
+          break;
+        case "//": //Integer Division
+          result = Math.floor(prev / current);
+          break;
+        default:
+          return;
+      }
+
+      setExpression((prevExp) => prevExp + " = " + result.toString());
     }
 
     setCurrentInput(result.toString());
-    setExpression((prev) => prev + " = " + result.toString());
     setPreviousInput(null);
     setOperation(null);
-    setEvaluated(true);
   };
 
   const handleClear = () => {
