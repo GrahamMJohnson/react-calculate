@@ -17,7 +17,6 @@ const Keypad = ({
   return (
     <div className="d-grid gap-2">
       <div className="row g-2">
-        {" "}
         {/* 1-3 number buttons */}
         <div className="col-4">
           <Button label="1" onClick={() => onNumberClick("1")} />
@@ -30,7 +29,6 @@ const Keypad = ({
         </div>
       </div>
       <div className="row g-2">
-        {" "}
         {/* 4-6 number buttons */}
         <div className="col-4">
           <Button label="4" onClick={() => onNumberClick("4")} />
@@ -43,7 +41,6 @@ const Keypad = ({
         </div>
       </div>
       <div className="row g-2">
-        {" "}
         {/* 7-9 number buttons */}
         <div className="col-4">
           <Button label="7" onClick={() => onNumberClick("7")} />
@@ -56,7 +53,6 @@ const Keypad = ({
         </div>
       </div>
       <div className="row g-2">
-        {" "}
         {/* 0, clear and equals buttons */}
         <div className="col-4">
           <Button label="0" onClick={() => onNumberClick("0")} />
@@ -66,6 +62,23 @@ const Keypad = ({
         </div>
         <div className="col-4">
           <Button label="=" onClick={onEquals} variant="success" />
+        </div>
+      </div>
+      <div className="row g-2">
+        {/* parentheses buttons */}
+        <div className="col-6">
+          <Button
+            label="("
+            onClick={() => onOperationClick("(")}
+            variant="primary"
+          />
+        </div>
+        <div className="col-6">
+          <Button
+            label=")"
+            onClick={() => onOperationClick(")")}
+            variant="primary"
+          />
         </div>
       </div>
       <div className="row g-2 mt-2">

@@ -4,10 +4,12 @@ import Keypad from "./Keypad";
 import { evaluate, floor } from "mathjs";
 
 const Calculator = () => {
+  //data that changes
   const [currentInput, setCurrentInput] = useState<string>("");
   const [expression, setExpression] = useState<string>("");
   const [justEvaluated, setJustEvaluated] = useState<boolean>(false);
 
+  //handler for a number click
   const handleNumberClick = (digit: string) => {
     if (justEvaluated) {
       setCurrentInput(digit);
@@ -19,6 +21,7 @@ const Calculator = () => {
     }
   };
 
+  //handler for a operation click
   const handleOperationClick = (op: string) => {
     if (justEvaluated) {
       setExpression(op === "√" ? `sqrt(` : currentInput + " " + op + " ");
@@ -27,7 +30,7 @@ const Calculator = () => {
       return;
     }
 
-    if (op === "√") {
+    if (op === "√") {//case for sqrt
       setExpression((prev) => prev + "sqrt(");
       return;
     }
@@ -37,6 +40,7 @@ const Calculator = () => {
     }
   };
 
+  //handler for when equals is pressed
   const handleEquals = () => {
     try {
       let expr = expression;
@@ -61,12 +65,14 @@ const Calculator = () => {
     }
   };
 
+  //handler for clear
   const handleClear = () => {
     setCurrentInput("");
     setExpression("");
     setJustEvaluated(false);
   };
 
+  //setting up the calculator
   return (
     <div
       className="container mt-4 p-3 border rounded shadow-sm"
